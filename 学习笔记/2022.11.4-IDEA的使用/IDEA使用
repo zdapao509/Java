@@ -1,0 +1,93 @@
+IDEA的使用：
+
+（目前主流的集成开发环境是：IntelliJ IDEA;
+
+这只是一个工具，不要让工具把你难住
+
+开发工具不要用汉化版，太low
+
+英文太多不害怕，记位置。一共就几个主要的操作位置）
+
+
+1.点击create new project
+
+	注意：在IDEA中，一个project相当于eclipse当中的一个workspace
+
+2.新建一个Empty Project
+
+	新建一个空的工程，选择创建工程窗口下面最后的哪一项，Empty Project
+
+3.给空的工程起一个名字：javase;			点击finish
+
+4.自动弹出一个每日提示，这个每日提示可以取消掉，以后就不会再提示了
+
+5.会自动弹出一个project structure，这个窗口先取消掉。
+
+6.在空的工程下新建Module（模块），IDEA中模块类似于eclipse中的project
+
+				eclipse的组织方式：
+
+					workspace--》project
+
+				IDEA的组织方式：
+
+					project--》module
+		
+		怎么创建module？
+
+				file菜单--》new--》Module
+
+	7.在new module窗口中点击左上角的java，然后next
+
+	8.给module起一个名字：HelloWordTest
+
+	9.编写代码，在src目录下新建类，写代码，并运行。
+
+
+
+快捷键的设置及一些简单的设置：
+	
+	1.字体设置：
+		
+		file-->settings-->输入font-->设置字体的样式以及字号
+
+	2.快速生成main方法：  psvm或者main 回车
+
+	3.快速生成System.out.println():		sout 回车
+
+	4.注意：IDEA是自动保存的，不需要Ctrl+s
+
+	5.删除一行：Ctrl+y
+
+	6.怎么运行：代码上右键run  或者  点击右侧的绿色箭头  或者Ctrl+shift+F10
+
+	7.左侧窗口中的列表怎么展开？怎么关闭？
+
+			左箭头展开，右箭头关闭；上下箭头移动
+
+	8.idea中退出任何窗口，都可以用ESC键
+
+	9.任何新增/新建/添加的快捷键（包括直接创建构造方法，包括重写，包括对私有化属性的getter和setter方法）
+
+			都是：		alt+insert
+
+	10.窗口变大变小：Ctrl+shift+F12
+
+	11.切换java程序：从HelloWorld到User
+		
+					alt+右箭头
+
+					或者  alt+左箭头
+
+	12.截屏：alt+Q
+
+	13.提示方法的参数：Ctrl+P
+
+	14.注释：单行注释：Ctrl+/
+							多行注释：Ctrl+shift+/
+	
+	15.idea中怎么定位方法/属性/变量？
+		光标停在某个单词下面，这个单词可能是：方法名、变量名
+		停在单词下面之后，按住Ctrl键，出现下划线，点击跳转。
+
+		324

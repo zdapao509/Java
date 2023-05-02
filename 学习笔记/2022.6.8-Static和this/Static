@@ -1,0 +1,291 @@
+static：
+
+				翻译为静态；
+
+				所有static修饰的都是类相关的；
+
+				所有static修饰的都是采用“类名.”的方式访问的；
+
+				static修饰的变量：静态变量
+
+				static修饰的方法：静态方法
+
+
+
+变量的划分：
+
+		根据申明的位置进行划分：
+				在方法体中申明的变量叫做：局部变量
+				在方法体外申明的变量叫做：成员变量
+
+	成员变量又可以划分：
+				实例变量：需要实例化之后，以引用.的方式访问
+				静态变量：不需要实例化，用类名.的方式就可以访问，不存在空指针异常的现象
+
+	class VarTest{
+			//实例变量i，需要先有对象，访问时采用引用.的方式进行访问；需要先new对象
+			//实例相关的，都需要先有对象，才能访问，可能会出现空指针异常
+			//成员变量中的实例变量
+			int i;
+
+			//实例方法
+			public void m2(){
+			}
+
+			//以下静态的，都是类相关的，访问时采用类名.的方式进行访问，不需要new对象
+			//不需要对象的参与即可访问，没有空指针异常
+			static int k;
+
+			//静态方法
+			public static void m1(){
+			}
+	}
+
+
+	类=属性+方法
+
+		属性=变量=成员变量+局部变量（存储在栈区）
+
+		方法=静态方法+实例方法+构造方法
+
+				成员变量=静态变量（存储在方法区，类加载的时候初始化，类级别）+实例变量（存储在堆区，对象级别）
+
+				注意：构造方法不属于静态方法和实例方法，
+								他是一个存在于类下面的方法，用来创建对象和初始化实例变量
+
+
+
+/*
+		什么时候变量声明是实例的，什么时候是静态的？
+				如果这个类型的所有对象的某个属性值都是一样的，不建议定义为实例变量，浪费内存空间
+				建议定义为类级别的特征，也就是静态变量，在方法区中只保留一份，节省内存开销
+
+				一个对象一份的是实例变量
+				所有对象一份的是静态变量
+*/
+
+/*
+public class	Test01
+{
+	public static void main(String[] args)
+	{
+		Chinese c1=new Chinese("123456","张三","中国");
+			System.out.println(c1.idCard);
+			System.out.println(c1.name);
+			System.out.println(c1.country);
+
+		Chinese c2=new Chinese("456789","李四","中国");
+			System.out.println(c2.idCard);
+			System.out.println(c2.name);
+			System.out.println(c2.country);
+	}
+}
+
+class Chinese
+{
+	String idCard;
+	String name;
+	String country;
+	public Chinese(){
+	}
+
+	public Chinese(String x,String y,String z){
+			idCard=x;
+			name=y;
+			country=z;
+	}
+}
+*/
+
+
+
+
+public class	Test01
+{
+	public static void main(String[] args)
+	{
+		Chinese c1=new Chinese("123456","张三");
+			System.out.println(c1.idCard);
+			System.out.println(c1.name);
+			System.out.println(Chinese.country);
+
+		Chinese c2=new Chinese("456789","李四");
+			System.out.println(c2.idCard);
+			System.out.println(c2.name);
+			c2=null;
+			System.out.println(c2.country);
+
+			/*
+					注意：实例变量一定需要使用引用.的方式进行访问，但是
+					静态的既可以使用引用.的方式进行访问，也可以使用类名.的方式进行访问
+
+					c2虽然为null,但是不会出现空指针异常，因为静态变量不需要对象的存在，实际上代码运行的时候还是：
+						
+						System.out.println(Chinese.country);
+
+					但是如果访问c2.name 就会出现空指针异常，
+
+					结论：空指针异常只有在空引用访问实例相关的，都会出现空指针异常
+			*/
+	}
+}
+
+
+class Chinese
+{
+	String idCard;
+	String name;
+	//加static属于静态变量，静态变量在类加载的时候初始化，不需要new对象，静态变量的空间就开出来了
+	//静态变量的存储在方法区。
+	static String country="中国";
+	public Chinese(){
+	}
+
+	public Chinese(String x,String y){
+			idCard=x;
+			name=y;
+	}
+}
+
+
+
+/*
+关于方法来说，什么时候定义为实例方法？什么时候定义为静态方法？有无参考标准？
+
+此方法用于描述一个行为，如果该行为由对象去触发，一般情况下为实例方法。
+
+参考标准：当这个方法体中，直接访问了实例变量，这个方法一定是实例方法。
+					我们以后的开发中，大部分情况下，如果是工具类的话，工具类的方法一般都是静态的。
+					静态方法有一个好处：不需要new对象，直接采用类名调用，极其方便。工具类就是为了方便，所以工具
+					类中的方法一般都是static的。
+
+					什么是工具类：以后讲——就是方便编程而开发的一些类。
+
+类=属性+方法
+		属性为状态
+		方法为动作；一个方法代表了一个动作
+
+什么时候方法定义为实例方法：
+		张三考试60分
+		李四考试100分
+		不同对象参加考试的结果不同
+		我们可以认定“考试”这个行为是与对象相关的行为
+		建议将考试的方法定义为实例方法
+*/
+public class Test02
+{
+	public static void main(String[] args){
+		User u =new User();
+		System.out.println(u.getId());
+		System.out.println(u.getName());
+	}
+}
+class User    
+{
+	private int id;//实例变量——需要对象
+	
+	private String name="zhangweiming";
+
+	public String getName(){
+		System.out.println(name);//打印用户的名字的方法应该是实例方法，不同的实例化对象拥有不同的实例化方法
+		return name;  
+	}
+
+	public static void printName01(){
+	}
+
+	public void setId(int i){
+		id=i;
+	}
+
+	public int getId(){
+		return id;
+	}
+
+/*
+	public static int getId(){
+		return id;//静态方法的话，要访问这个方法可以通过类名.getId（）的方式读取，不需要创建对象；
+		//但是这里面的id，如果不进行实例化的话，就没有数值，也就无法返回一个正常的整数，即报错
+	}
+
+	public static void setId(int i){
+		id=i;
+	}同样的，如果静态的话，id是没有值的，也不知道这个值具体的类型，因为没有实例化，不知道这个值的类型			
+*/
+
+}
+
+
+java语言中变量分两种；局部变量和成员变量；成员变量又分为了两种，实例变量和静态变量
+
+其中局部变量存储在栈区；静态变量存储在方法区；实例变量存储在堆区
+
+静态变量在类加载时初始化，分配空间；
+局部变量在方法执行过程中开辟空间；
+实例变量在构造方法执行时、对象创建时分配空间。
+
+private修饰的东西在本类中可以不用get方法去访问，直接this.属性的方式去访问。在本类外的调用就需要get方法
+
+
+程序在怎么变化，也有一个固定的规律：
+	所有的实例相关的都是先创建对象，通过引用.的方式来访问；
+	所有的静态相关的都是直接采用类名.的方式来访问
+
+大结论：	
+		
+		只要负责调用的方法a和被调用的方法b在同一个类当中：
+			
+			this.可以省略
+			类名.可以省略
+
+
+	public class Review{
+			int i=20;
+			static int j=1000;
+			public void m1(){
+					
+			}
+			
+			public static void m3(){}
+
+			public void x(){——实例方法调用其他的实例方法的时候 ，在这个实例方法之前如果省略了引用.的话，会自
+														动补全this.（前提是这两个方法在同一个类下面）
+
+						m1();——实际上这里是this.m1()，因为这是一个实例方法
+						m3();——这里是静态方法，所以这里实际上是：Review.m3()	类名.m3()
+						System.out.println(i);——this.i
+						System.out.println(j);——Review.j
+
+						访问其他类中的方法：
+
+								T t=new T();
+								t.t2();——创建对象访问实例方法
+								T.t1();——利用类名访问静态方法
+
+			}
+
+			public static void main(String[]  args){
+					m1();——编译报错；想要访问实例方法，只能new一个对象出来，通过对象.的方式实现访问
+					m3();——编译没问题，编译器会自动识别
+
+					int k=1000;
+					System.out.println(k);
+						这里的k就可以直接访问，这个k是局部变量，局部变量访问的时候不需要“xxx.”
+
+
+				问：你是怎么分析的？
+					第一步：main方法是静态的，JVM 调用main方法的时候，直接采用的是类名.的方式，所以main方法中没有
+											this;
+					第二部：m1方法属于实例方法，必须先new对象，引用.的方式来引用。
+			}
+
+	}
+
+
+	class T{
+		public static void t1(){}
+		public void t2(){}
+	}
+
+
+P277

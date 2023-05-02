@@ -1,0 +1,95 @@
+面向对象的三大特征：
+		封装
+		继承
+		多态
+
+有了封装才能继承，有了继承才能说多态。
+
+面向对象的首要特征：封装
+
+封装的作用：1.保证内部结构的安全性
+								 2.屏蔽复杂，暴露简单
+
+在代码级别上，封装的作用：
+			一个类体中，封装之后，对于代码的调用来说，不需要关心代码的复杂实现，只要通过一个简单地入口就可以
+			访问。另外，类体中，安全级别较高的数据封装起来，外部人员不能随意访问，保证数据的安全性
+
+带有static方法与不带static的方法分别怎么调用：
+		带有static的方法：类名.方法（）；
+		不带有static(实例方法，对象方法，对象级别的方法)的调用：创建对象，用引用.方法进行调用；
+
+		对象被称为实例，实例相关的有实例变量，实例方法；实例变量是对象变量，实例方法是对象方法
+		实例相关的都需要先new对象，通过引用.的方式去访问；
+
+		public class Test{
+				public static void main(String[] args){
+					doSome();
+					Test.doSome();
+					Test a=new Test();
+					a.doOther();
+				}
+				public static void doSome(){
+						System.out.println("doSome");
+				}
+				public void doOther(){
+						System.out.println("doOther");
+				}
+		}
+
+实例方法导致的空指针异常：
+		
+		空指针异常的本质原因：空引用访问“实例相关的数据”，出现空指针异常
+		实例相关的包括：实例变量+实例方法
+
+public class Test{
+		public static void main(String[] args){
+				User ab=new User();
+				System.out.println(ab.a);
+				ab.doSome();
+				ab=null;//NullPointerException: Cannot read field "a" because "<local1>" is null空指针异常
+							//--可以编译但是无法运行
+				//	System.out.println(ab.a);
+				ab.doSome();//一个实例方法的调用也需要有对象的存在
+		}
+}
+//类=属性+方法
+//属性描述状态。方法描述行为动作
+
+class User{
+		int a;//实例变量
+		public void doSome(){//实例方法
+				System.out.println("doSome");
+		}
+}
+
+
+对于私有化的理解：
+
+		如果没有private私有化的话，外部程序可以直接调用并且修改对象的属性
+		这就会出现不合理又没法控制的现象，比如：年龄范围不能存在负数，但是如果不私有化，外部
+		更改年龄为负数，那就没办法控制，需要有一个校验的过程，这里就是get和set的作用，读与写；但是没有
+		private的话，是不会执行实例方法的，所以必须要private；
+
+
+
+		封装的两个步骤：
+				
+				1.属性私有化 private
+
+				2.每个属性对外提供get和set两个方法，外部程序只能通过get读取，通过set修改；可以在set里面设立关卡
+						以保护数据的安全性；
+
+
+
+		set个get不带static，为实例方法
+
+				实例方法必须先new一个对象
+
+				set方法：public void set+属性名首字母大写（一个参数）{
+						xxx=参数；
+				}
+
+				get方法：public 返回值类型 get+属性名首字母大写（无参数）{
+						return xxx；
+				}
+
